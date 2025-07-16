@@ -4,6 +4,11 @@ let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
+// Route to get the full list of books
+router.get('/', function (req, res) {
+    // Use JSON.stringify to format the output neatly
+    res.send(JSON.stringify(books, null, 4)); // Pretty print with 4 spaces indentation
+});
 
 public_users.post("/register", (req,res) => {
   //Write your code here
@@ -41,3 +46,4 @@ public_users.get('/review/:isbn',function (req, res) {
 });
 
 module.exports.general = public_users;
+module.exports.general = router;
