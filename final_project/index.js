@@ -12,6 +12,13 @@ app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUni
 
 app.use("/customer/auth/*", function auth(req,res,next){
 //Write the authenication mechanism here
+    if(req.session.authorization) { // Check if the session has an authorization object
+        let token = req.session.authorization['accessToken']; // Retrieve the access token from the session
+        next();
+    } else {
+        // If no access token is found in the session, deny access
+        return res.status(403).json({message: "User not authenticated"});
+    }
 });
  
 const PORT =5000;
